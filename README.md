@@ -1,1 +1,1 @@
-# .NETTraninings
+# .NETTrainings
