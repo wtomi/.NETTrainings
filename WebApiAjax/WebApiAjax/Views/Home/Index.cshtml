@@ -21,13 +21,36 @@
             });
         });
     });
+
+    function listiner() {
+        var json = this.response;
+        document.getElementById("sum").innerHTML = json.Sum;
+        document.getElementById("difference").innerHTML = json.Difference;
+        document.getElementById("product").innerHTML = json.Product;
+        document.getElementById("quotient").innerHTML = json.Quotient;
+    }
+
+    function callApi() {
+        var x = document.getElementById("x").value;
+        var y = document.getElementById("y").value;
+        var oReq = new XMLHttpRequest();
+        oReq.addEventListener("load", listiner);
+        oReq.open("GET", "/api/Math?x=" + x + "&y=" + y, true);
+        oReq.responseType = "json";
+        oReq.setRequestHeader('Accept', 'application/json');
+        oReq.send();
+    }
+
+
+
 </script>
 <div>
     <h1>Calculations</h1>
     <form>
         x = <input type="text" id="x" />
         y = <input type="text" id="y" />
-        <input type="button" id="calc" value="Calculate" />
+        <input type="button" id="calc" value="Call API (jQuery)" />
+        <input type="button" onclick="callApi()" value="Call API (vanilla JS)" />
     </form>
     x + y = <span id="sum"></span><br />
     x - y = <span id="difference"></span><br />
