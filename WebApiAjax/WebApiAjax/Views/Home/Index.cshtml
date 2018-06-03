@@ -1,0 +1,36 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        $("#calc").click(function () {
+            var x = $("#x").val();
+            var y = $("#y").val();
+            $.ajax({
+                type: "GET",
+                data: { "x": x, "y": y },
+                dataType: "xml",
+                url: "api/Math",
+                success: function (xml) {
+                    var diff = $(xml).find("Difference");
+                    var prod = $(xml).find("Product");
+                    var quot = $(xml).find("Quotient");
+                    var sum = $(xml).find("Sum");
+                    $("#difference").html(diff.text());
+                    $("#product").html(prod.text());
+                    $("#quotient").html(quot.text());
+                    $("#sum").html(sum.text());
+                }
+            });
+        });
+    });
+</script>
+<div>
+    <h1>Calculations</h1>
+    <form>
+        x = <input type="text" id="x" />
+        y = <input type="text" id="y" />
+        <input type="button" id="calc" value="Calculate" />
+    </form>
+    x + y = <span id="sum"></span><br />
+    x - y = <span id="difference"></span><br />
+    x * y = <span id="product"></span><br />
+    x / y = <span id="quotient"></span><br />
+</div>
